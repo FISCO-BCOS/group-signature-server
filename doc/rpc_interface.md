@@ -166,7 +166,7 @@ result: 创建生成的群公钥信息
 - **请求方法: join_group**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required，要加入的群名称 |
 | member_name | required, 加入的成员名称 |
@@ -267,7 +267,8 @@ result: 创建生成的群公钥信息
 ```
 
 - **返回参数**
-| <div align = left>参数</div>         | <div align = left>说明</div>   |
+
+| <div align = left>参数</div>  | <div align = left>说明</div>   |
 | ---------- | ---- |
 | details | 若产生群签名成功，返回success；否则返回具体失败原因|
 | sig |产生群签名成功情况下，存在该字段，存储群签名信息|
@@ -1036,6 +1037,7 @@ result: 创建生成的群公钥信息
 | ---------- | ---- |
 | ring_name | 要获取的私钥所属的环 |
 | id | 要获取的私钥在环中的位置 |
+
 (注：当前版本没有做访问控制，为了更强安全性，在生产环境中使用该接口时，一定要加上口令验证功能，由于本项目是第一版，没有加口令验证功能，后续版本会考虑支持该特性)
 
 - **Response Result**
