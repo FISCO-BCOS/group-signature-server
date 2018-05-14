@@ -19,7 +19,7 @@
 
 ## 1. 基本介绍
 
-群签名&&环签名rpc调用[群签名&&环签名算法库](https://github.com/FISCO-BCOS/sig-service/blob/master/doc/群签名_环签名算法接口.md)，实现了[BBS04群签名算法](http://crypto.stanford.edu/~dabo/abstracts/groupsigs.html)和[可连接的环签名算法](http://pdfs.semanticscholar.org/3c63/f7c90d79593fadfce16d54078ec1850bedc9.pdf)， 部署于机构内，用于提供群签名和环签名服务。
+群签名&&环签名rpc调用[群签名&&环签名算法库](doc/群签名_环签名算法接口.md)，实现了[BBS04群签名算法](http://crypto.stanford.edu/~dabo/abstracts/groupsigs.html)和[可连接的环签名算法](http://pdfs.semanticscholar.org/3c63/f7c90d79593fadfce16d54078ec1850bedc9.pdf)， 部署于机构内，用于提供群签名和环签名服务。
 
 本节首先简单介绍群签名&&环签名rpc的主要模块及相关代码目录；接着介绍群签名&&环签名算法主要特性和流程，让大家对这两种算法有基本的认识；之后，简单介绍几种应用场景。
 
@@ -123,7 +123,7 @@ B端用户将生成的群签名通过AMOP发送给上链结构（如agency），
 
 ### 1.4 群签名 && 环签名RPC接口
 
-群签名&&环签名RPC详细接口可参考[群签名&&环签名RPC接口文档](https://github.com/FISCO-BCOS/sig-service/blob/master/doc/rpc_interface.md)
+群签名&&环签名RPC详细接口可参考[群签名&&环签名RPC接口文档](doc/rpc_interface.md)
 
 <br>
 
