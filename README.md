@@ -98,6 +98,7 @@
 B端用户将生成的群签名通过AMOP发送给上链结构（如agency），上链机构将收集到的群签名信息统一上链，其他人验证签名时，无法获取签名者身份，保证成员的匿名性，监管可通过可信第三方追踪签名者信息，保证签名的可追踪性
 
 <br>
+
 **(2) 环签名场景**
 
 **场景1：（匿名投票）**
@@ -182,6 +183,7 @@ bash format.sh
 cd script && sudo bash install_deps.sh
 ```
 <br>
+
 **(3) 安装群签名算法依赖软件pbc和pbc-sig**
 
 群签名算法依赖pbc库和pbc-sig库，部署群签名&&环签名RPC服务前，首先要安装pbc和pbc-sig库，sig-service在script目录下提供了pbc和pbc-sig一键安装脚本install.sh，执行以下命令安装pbc和pbc-sig:
