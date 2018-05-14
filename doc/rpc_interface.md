@@ -36,7 +36,7 @@
 
 RPC的返回码定义在devcore/StatusCode.h, 该RPC的返回码如下：
 
-| 返回码| 返回码含义|
+| <div align = left>返回码</div>| <div align = left>返回码含义</div>|
 | ---- | ---- |
 | 0     | RPC方法调用成功|
 | 10001     | UNKOWN_ALGORITHM，RPC requests参数指定的群算法类型未知（目前只支持BBS04算法，以后会支持更多算法）     |
@@ -108,7 +108,7 @@ F typer linear pair: {\"linear_type\":\"f\", \"bit_len\": 256}
 
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required，群名称      |
 | gm_pass    | required, 群主访问RPC服务的口令     |
@@ -198,7 +198,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | details | 说明信息，若成员加入成功，返回success；否则，返回具体的出错信息 |
 | result | 若成员加入成功，返回新加入成员私钥；若成员加入失败，没有该字段 |
@@ -232,7 +232,7 @@ result: 创建生成的群公钥信息
 
 - **请求参数**
  
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required, 产生的群签名所属的群  |
 | member_name | required, 请求RPC服务生成群签名的群成员 |
@@ -267,7 +267,7 @@ result: 创建生成的群公钥信息
 ```
 
 - **返回参数**
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | details | 若产生群签名成功，返回success；否则返回具体失败原因|
 | sig |产生群签名成功情况下，存在该字段，存储群签名信息|
@@ -304,7 +304,7 @@ result: 创建生成的群公钥信息
 
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required, 群签名所属的群|
 | group_sig |required, 群签名信息|
@@ -336,7 +336,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，0表示调用群签名验证接口成功；其他值表明调用群签名验证接口失败，返回码详细说明参考[1. 返回码说明](#1-返回码说明) |
 | details | 若调用群签名验证接口成功，返回success; 否则返回调用失败的原因 |
@@ -370,7 +370,7 @@ result: 创建生成的群公钥信息
 - **请求方法: open_cert**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required, 要追踪的签名所属的群 |
 | group_sig | required, 要追踪签名者的群签名信息 |
@@ -407,7 +407,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若获取签名者证书成功，返回0；否则返回其他返回码，返回码具体含义参考[1. 返回码说明](#1-返回码说明)|
 | details | 返回信息，若获取签名者证书信息成功，返回success；否则返回调用open_cert接口失败的原因 |
@@ -438,7 +438,7 @@ result: 创建生成的群公钥信息
 - **请求方法: get_public_info**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 |  group_name | required，要查询的群公钥所属的群  |
 
@@ -471,7 +471,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若获取指定群公钥信息成功，返回0；否则返回其他返回码，返回码具体含义可参考[1. 返回码说明](#1-返回码说明)|
 | details | 说明信息，若获取群公钥信息成功，为"success"；否则为具体的访问出错信息 |
@@ -502,7 +502,7 @@ result: 创建生成的群公钥信息
 - **请求方法: get_gmsk_info**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required, 群主所属的群 |
 | gm_pass |  required, 群主访问RPC服务的口令，可随意填写（当前版本没有对该字段做校验，该字段预留，可基于本版本完善该功能）|
@@ -537,7 +537,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若为0表明群主获取私钥成功；其他返回码表明群主获取私钥失败，返回码具体含义可参考[1. 返回码说明](#1-返回码说明)|
 | details | 说明信息，若群主获取私钥成功，为"success"；否则说明具体出错原因|
@@ -569,7 +569,7 @@ result: 创建生成的群公钥信息
 - **请求方法: get_gsk_info**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | group_name | required, 群成员所属的群 |
 | member_name | required, 群成员名 |
@@ -604,7 +604,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若群成员获取私钥信息成功，返回0；否则返回其他非0错误码，具体错误码信息参考 [1. 返回码说明](#1-返回码说明)|
 | details | 说明信息，若群成员获取私钥成功，为"success"；否则为具体错误信息 |
@@ -639,7 +639,7 @@ result: 创建生成的群公钥信息
 - **请求方法: setup_ring**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>  |
 | ---------- | ---- |
 | ring_name | required, 要初始化的环名称 |
 | bit_len | optional, 环参数 && 环成员公私钥对长度，与签名安全性紧密相关，默认位1024|
@@ -673,7 +673,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 |ret_code| 返回码，0表明初始化环成功；其他返回码表明初始化环参数失败，返回码具体含义可参考[1. 返回码说明](#1-返回码说明)|
 |details| 详细说明信息，若初始化环参数成功，返回"success"；否则返回具体出错原因|
@@ -702,7 +702,7 @@ result: 创建生成的群公钥信息
 - **请求方法: join_ring**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 |  ring_name | required, 环成员要加入的环大小 |
 
@@ -736,7 +736,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若成员加入环成功，返回0；否则返回其他返回码，返回码具体含义可参考[1. 返回码说明](#1-返回码说明)|
 | details | 说明信息，若成员加入环成功，输出success; 否则输出出错信息 |
@@ -768,7 +768,7 @@ result: 创建生成的群公钥信息
 - **请求方法: linkable_ring_sig**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ring_name | required, 产生环签名的环 |
 | message | required, 环签名对应的明文 |
@@ -803,7 +803,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若为指定成员生成环签名成功，返回0；否则返回其他返回码，返回码具体含义可参考[1. 返回码说明](#1-返回码说明)|
 | details | 生成环签名失败时，包含该字段，输出生成环签名失败的原因|
@@ -837,7 +837,7 @@ result: 创建生成的群公钥信息
 - **请求方法: linkable_ring_verify**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ring_name | required, 签名所属的环  |
 | sig | required, 环签名信息|
@@ -872,7 +872,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码，若调用环签名验证接口成功，返回0；否则返回其他返回码，返回码具体含义可参考[1. 返回码说明](#1-返回码说明) |
 |details | 调用环签名验证接口成功，返回success; 否则返回出错原因|
@@ -903,7 +903,7 @@ result: 创建生成的群公钥信息
 - **请求方法: get_ring_param**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 |  ring_name | required, 要获取的参数所属的环名称  |
 
@@ -936,7 +936,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码:若获取环参数成功，返回0；否则返回其他返回码，具体返回码含义可参考[1. 返回码说明](#1-返回码说明) |
 | details |描述信息: 若获取环参数成功，输出success; 否则返回获取环参数失败的原因 |
@@ -966,7 +966,7 @@ result: 创建生成的群公钥信息
 - **请求方法: get_public_key**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ring_name |  要获取的公钥所属的环|
 | id | 要获取的公钥在环中的位置 |
@@ -1000,7 +1000,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码：若环成员获取公钥信息成功，返回0；否则返回其他非零错误码，错误码详细含义可参考[1. 返回码说明](#1-返回码说明)|
 | details | 说明信息：若环成员获取公钥信息成功，返回success；否则返回环成员获取公钥信息失败的原因 |
@@ -1032,7 +1032,7 @@ result: 创建生成的群公钥信息
 - **请求方法: get_private_key**
 - **请求参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ring_name | 要获取的私钥所属的环 |
 | id | 要获取的私钥在环中的位置 |
@@ -1066,7 +1066,7 @@ result: 创建生成的群公钥信息
 
 - **返回参数**
 
-| 参数         | 说明   |
+| <div align = left>参数</div>         | <div align = left>说明</div>   |
 | ---------- | ---- |
 | ret_code | 返回码：0表示环成员获取私钥成功；其他返回码表明环成员获取私钥失败，返回码具体含义可参考[1. 返回码说明](#1-返回码说明)|
 | details | 说明信息：若环成员获取私钥成功，返回success；否则返回获取环成员私钥信息失败的原因 |
