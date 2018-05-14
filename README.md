@@ -13,20 +13,19 @@
     - [2.3 使用说明](#23-使用说明)
 
 <!-- /TOC -->
+
 <br>
 <br>
 
 ## 1. 基本介绍
-*************************************************************************
 
 群签名&&环签名rpc调用[群签名&&环签名算法库](https://github.com/FISCO-BCOS/sig-service/blob/master/doc/群签名_环签名算法接口.md)，实现了[BBS04群签名算法](http://crypto.stanford.edu/~dabo/abstracts/groupsigs.html)和[可连接的环签名算法](http://pdfs.semanticscholar.org/3c63/f7c90d79593fadfce16d54078ec1850bedc9.pdf)， 部署于机构内，用于提供群签名和环签名服务。
 
 本节首先简单介绍群签名&&环签名rpc的主要模块及相关代码目录；接着介绍群签名&&环签名算法主要特性和流程，让大家对这两种算法有基本的认识；之后，简单介绍几种应用场景。
 
 ### 1.1 群签名&&环签名rpc服务主要模块
-*************************************************************************
 
-| 模块 && 代码目录                               | 说明                                       |
+| <div align = left>模块 && 代码目录</div>                               | <div align = left>说明</div>                                       |
 | ---------------------------------------- | ---------------------------------------- |
 | 常用数据结构模块(devcore)                        | 定义了其他模块经常使用的基本数据结构，如配置解析、错误码、日志等         |
 | 群签名算法模块(algorithm/bbs04/)<br>(群签名算法接口：algorithm/GroupSig.h) | BBS04群签名算法实现模块，bbs04是基于线性对的群签名算法，sig-service提供了多种线性对支持，用户可根据安全性需求自定义线性对 |
@@ -36,28 +35,26 @@
 | 依赖软件安装脚本(script)                         | 调用该目录下的install_deps.sh和install.sh部署群签名&&环签名RPC的依赖软件 |
 
 <br>
+
 [返回目录](#目录)
-<br>
-*************************************************************************
+
 <br>
 
 
 ### 1.2 群签名&&环签名主要特性和流程
-*************************************************************************
 
 **(1) 群签名和环签名主要特性**
-*************************************************************************
 
-| 算法      | 特性                                       |
+| <div align = left>算法</div>      | <div align = left>特性</div>                                       |
 | ------- | ---------------------------------------- |
 | **群签名** | 1. **匿名性**：群成员用群参数产生签名，其他人仅可验证签名的有效性，并通过签名知道签名者所属群组，却无法获取签名者身份信息；<br>2. **可追踪性**: 在监管介入的场景中，群主可通过签名获取签名者身份. |
 | **环签名** | 1. **完全匿名性**：其他人仅可验证环签名的有效性，无法获取签名者身份信息；<br>2. **不可追踪性**：无法追踪签名对应的签名者信息. |
 
 <br>
-**(2) 群签名主要流程**
-*************************************************************************
 
-| 流程      | 说明                                       |
+**(2) 群签名主要流程**
+
+| <div align = left>流程</div>      | <div align = left>说明</div>                                       |
 | ------- | ---------------------------------------- |
 | 生成群     | 生成群公钥(gpk)，群主私钥(gmsk)和群参数(可用不同线性对参数生成群，sig-service支持A， A1， E 和 F类型线性对，默认使用A类型线性对) |
 | 加入群     | 群主为群成员产生私钥(gsk)和证书(cert)                 |
@@ -66,10 +63,10 @@
 | 追踪签名者信息 | 在监管介入场景中，群主通过签名信息可获取签名者证书，从而追踪到签名者身份     |
 
 <br>
-**(3) 环签名主要流程**
-*************************************************************************
 
-| 流程         | 说明                                       |
+**(3) 环签名主要流程**
+
+| <div align = left>流程</div>         | <div align = left>说明</div>                                       |
 | ---------- | ---------------------------------------- |
 | 初始化环       | 生成环参数                                    |
 | 为环成员产生公私钥对 | 成员加入环时，rpc服务为环成员产生公私钥对                   |
@@ -77,22 +74,20 @@
 | 环签名验证      | 其他人通过环参数和产生环签名的公钥列表，验证环签名的有效性            |
 
 <br>
+
 [返回目录](#目录)
+
 <br>
 
-*************************************************************************
-<br>
 
 
 ### 1.3 场景
-*************************************************************************
 
 群签名&&环签名RPC服务部署于可信机构内，提供群签名和环签名服务，该服务可与[群签名&&环签名客户端](https://github.com/FISCO-BCOS/sig-service-client) 结合使用，应用于区块链场景，也可以作为机构的签名服务，应用于其他场景。
 
 下面列举群签名&&环签名在区块链中的应用场景：
 
 **(1) 群签名场景**
-*************************************************************************
 
 **场景1( ToC )：拍卖、匿名存证等场景**
 
@@ -104,7 +99,6 @@ B端用户将生成的群签名通过AMOP发送给上链结构（如agency），
 
 <br>
 **(2) 环签名场景**
-*************************************************************************
 
 **场景1：（匿名投票）**
 
@@ -119,33 +113,31 @@ B端用户将生成的群签名通过AMOP发送给上链结构（如agency），
 在UTXO模型下，可将环签名算法应用于匿名交易，任何人都无法追踪转账交易双方；
 
 <br>
+
 [返回目录](#目录)
+
 <br>
-*************************************************************************
 <br>
 
 
 ### 1.4 群签名 && 环签名RPC接口
-*************************************************************************
 
 群签名&&环签名RPC详细接口可参考[群签名&&环签名RPC接口文档](https://github.com/FISCO-BCOS/sig-service/blob/master/doc/rpc_interface.md)
 
 <br>
+
 [返回目录](#目录)
+
 <br>
-*************************************************************************
 <br>
 
 ## 2. 群签名&&环签名RPC服务部署
-*************************************************************************
 
 本章主要介绍了如何部署和运行群签名&&环签名RPC服务。
 
 ### 2.1 部署依赖软件包
-*************************************************************************
 
 **(1) 安装基础依赖软件** 
-*************************************************************************
 
 部署群签名&&环签名RPC服务之前，要安装git, dos2unxi, lsof依赖软件：
 
@@ -179,8 +171,9 @@ bash format.sh
 ```
 
 <br>
+
 **(2) 安装levelDB、gmp等依赖软件**
-*************************************************************************
+
 
 群签名&&环签名rpc服务，需要安装levelDB, gmp等依赖软件，sig-service在script目录下提供了install_deps.sh脚本，执行以下命令安装这些依赖软件：
 
@@ -190,7 +183,6 @@ cd script && sudo bash install_deps.sh
 ```
 <br>
 **(3) 安装群签名算法依赖软件pbc和pbc-sig**
-*************************************************************************
 
 群签名算法依赖pbc库和pbc-sig库，部署群签名&&环签名RPC服务前，首先要安装pbc和pbc-sig库，sig-service在script目录下提供了pbc和pbc-sig一键安装脚本install.sh，执行以下命令安装pbc和pbc-sig:
 
@@ -202,15 +194,13 @@ cd script && sudo ./install.sh
 ```
 
 <br>
+
 [返回目录](#目录)
-<br>
-*************************************************************************
-<br>
 
-
+<br>
+<br>
 
 ### 2.2 编译安装群签名&&环签名RPC服务
-*************************************************************************
 
 ```bash
 # 编译sig-service
@@ -228,16 +218,15 @@ cd sig-service && mkdir -p build && cd build && cmake .. && make -j4
 ```
 
 <br>
+
 [返回目录](#目录)
+
 <br>
-*************************************************************************
 <br>
 
 
 ### 2.3 使用说明
-*************************************************************************
 **(1) 启动群签名&&环签名RPC服务**
-*************************************************************************
 
 ```bash
 #群签名&&环签名RPC服务使用方法：
@@ -254,7 +243,7 @@ group sig and ring sig RPC:
 
 各参数含义如下：
 
-| 参数                    | 说明                    | 默认参数       |
+| <div align = left>参数</div>                    | <div align = left>说明</div>               | <div align = left>默认参数</div>       |
 | --------------------- | --------------------- | ---------- |
 | -p, --port            | rpc服务启动端口             | 8003       |
 | -n, --http_thread_num | rpc服务启动的http线程数目      | 50         |
@@ -264,8 +253,8 @@ group sig and ring sig RPC:
 | -h, --help            | 显示帮助信息                | -          |
 
 <br>
+
 **(2) 日志配置 log.conf**
-*************************************************************************
 
 sig-service目录下存着一个日志配置文件示例log.conf，其内容如下。
 
@@ -280,7 +269,7 @@ sig-service目录下存着一个日志配置文件示例log.conf，其内容如�
     TO_FILE                 =   true  
     TO_STANDARD_OUTPUT      =   false  
     FORMAT                  =   "%level|%datetime{%Y-%M-%d %H:%m:%s:%g}|%msg"   
-    FILENAME                =   "/data/chenyujie/sig-service/log/log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/sig-service/log/log_%datetime{%Y%M%d}.log"  
     MILLISECONDS_WIDTH      =   3   
     PERFORMANCE_TRACKING    =   false  
     MAX_LOG_FILE_SIZE       =   209715200 ## 200MB - Comment starts with two hashes (##)
@@ -288,31 +277,31 @@ sig-service目录下存着一个日志配置文件示例log.conf，其内容如�
     
 * TRACE:  
     ENABLED                 =   false
-    FILENAME                =   "/data/chenyujie/sig-service/log/trace_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/sig-service/log/trace_log_%datetime{%Y%M%d}.log"  
     
 * DEBUG:  
     ENABLED                 =   true
-    FILENAME                =   "/data/chenyujie/sig-service/log/debug_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/sig-service/log/debug_log_%datetime{%Y%M%d}.log"  
 
 * FATAL:  
     ENABLED                 =   true  
-    FILENAME                =   "/data/chenyujie/sig-service/log/fatal_log_%datetime{%Y%M%d}.log"
+    FILENAME                =   "/data/sig-service/log/fatal_log_%datetime{%Y%M%d}.log"
     
 * ERROR:  
     ENABLED                 =   true
-    FILENAME                =   "/data/chenyujie/sig-service/log/error_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/sig-service/log/error_log_%datetime{%Y%M%d}.log"  
     
 * WARNING: 
      ENABLED                 =   true
-     FILENAME                =   "/data/chenyujie/sig-service/log/warn_log_%datetime{%Y%M%d}.log"
+     FILENAME                =   "/data/sig-service/log/warn_log_%datetime{%Y%M%d}.log"
  
 * INFO: 
     ENABLED                 =   true
-    FILENAME                =   "/data/chenyujie/sig-service/log/info_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/sig-service/log/info_log_%datetime{%Y%M%d}.log"  
     
 * VERBOSE:  
     ENABLED                 =   true
-    FILENAME                =   "/data/chenyujie/sig-service/log/verbose_log_%datetime{%Y%M%d}.log"
+    FILENAME                =   "/data/sig-service/log/verbose_log_%datetime{%Y%M%d}.log"
 ```
 
 用户启动群签名&&环签名RPC服务时，用-l或--log_path选项设置日志路径，或者直接将log.conf拷贝到编译生成的可执行文件同一路径，不指定-l或--log_path，一个简单的启动例子如下：
@@ -328,7 +317,8 @@ chmod +x build/server && nohup  ./build/server -p 8005 -n 1000 -l bak/log.conf >
 ```
 
 <br>
+
 [返回目录](#目录)
+
 <br>
-*************************************************************************
 <br>
