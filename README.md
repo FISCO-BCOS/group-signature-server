@@ -152,7 +152,7 @@ B端用户将生成的群签名通过AMOP发送给上链结构（如agency），
 sudo yum -y install git
 sudo yum -y install dos2unix
 sudo yum -y install java
-sudo yum -y intall lsof
+sudo yum -y install lsof
 
 [ubuntu]
 sudo apt install git
