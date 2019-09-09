@@ -34,7 +34,9 @@ function pre_steps()
 }
 
 pre_steps
-if grep -Eqi "Ubuntu" /etc/issue || grep -Eq "Ubuntu" /etc/*-release; then
+if [ "$(uname)" == "Darwin" ]; then
+   cd build && cmake .. && make
+elif grep -Eqi "Ubuntu" /etc/issue || grep -Eq "Ubuntu" /etc/*-release; then
     cd build && cmake .. && make
 else
     cd build && cmake3 .. && make

@@ -29,16 +29,18 @@
 #include "jsonrpccpp/server/abstractserverconnector.h"
 #include "jsonrpccpp/server/requesthandlerfactory.h"
 
-#include "devcore/easylog.h"
+#include "easylog/easylog.h"
 
-template<class I> using AbstractMethodPointer = void(I::*)(Json::Value const& _parameter, Json::Value& _result);
+template <class I>
+using AbstractMethodPointer = void (I::*)(Json::Value const &_parameter, Json::Value &_result);
 
-template<class I> using AbstractNotificationPointer = void(I::*)(Json::Value const& _parameter);
+template <class I>
+using AbstractNotificationPointer = void (I::*)(Json::Value const &_parameter);
 
 struct RpcModule
 {
-    std::string name; 
-    std::string version; 
+    std::string name;
+    std::string version;
 };
 
 //abstract interface of method
@@ -53,55 +55,59 @@ public:
     using MethodVec = std::vector<MethodBinding>;
     using NotificationVec = std::vector<NotificationBinding>;
     using RpcModuleVec = std::vector<RpcModule>;
-    
-    virtual ~ServerInterface(){}
-    MethodVec const& methods() const{ return m_methods;}
-    NotificationVec const& notifications() const{ return m_notifications; }
-    
+
+    virtual ~ServerInterface() {}
+    MethodVec const &methods() const { return m_methods; }
+    NotificationVec const &notifications() const { return m_notifications; }
+
     //rpc version, for version manager
     virtual RpcModuleVec ImplementedModules() const = 0;
-protected:
-    void bind_and_add_method(jsonrpc::Procedure const& proc,
-            MethodPointer method_pointer)
-    { m_methods.emplace_back(proc, method_pointer); }
 
-    void bind_and_add_notification(jsonrpc::Procedure const& proc,
-            NotificationPointer pointer)
-    { m_notifications.emplace_back(proc, pointer); }
+protected:
+    void bind_and_add_method(jsonrpc::Procedure const &proc,
+                             MethodPointer method_pointer)
+    {
+        m_methods.emplace_back(proc, method_pointer);
+    }
+
+    void bind_and_add_notification(jsonrpc::Procedure const &proc,
+                                   NotificationPointer pointer)
+    {
+        m_notifications.emplace_back(proc, pointer);
+    }
 
 private:
     MethodVec m_methods;
     NotificationVec m_notifications;
 };
 
-template<class... Is>
-class ModularServer: public jsonrpc::IProcedureInvokationHandler
+template <class... Is>
+class ModularServer : public jsonrpc::IProcedureInvokationHandler
 {
 public:
-    ModularServer():
-     m_handler(jsonrpc::RequestHandlerFactory::createProtocolHandler(jsonrpc::JSONRPC_SERVER_V2, *this))
+    ModularServer() : m_handler(jsonrpc::RequestHandlerFactory::createProtocolHandler(jsonrpc::JSONRPC_SERVER_V2, *this))
     {
         m_handler->AddProcedure(jsonrpc::Procedure("rpc_modules", jsonrpc::PARAMS_BY_POSITION, jsonrpc::JSON_OBJECT, NULL));
         m_implemented_modules = Json::objectValue;
     }
 
     //rpc_module default callback function
-    inline virtual void modules(const Json::Value& request, Json::Value& response)
+    inline virtual void modules(const Json::Value &request, Json::Value &response)
     {
-       response = m_implemented_modules; 
+        response = m_implemented_modules;
     }
 
     /*
      *@function: start listen service for m_connector to receive requests
      *@ret: true: listen service is started successfully
      *      false: listen service is failed to start
-     */ 
+     */
     virtual bool StartListening()
     {
-        LOG(DEBUG)<<"start listening service for all connectors";
-        for(auto const& connector: m_connectors )
+        LOG(DEBUG) << "start listening service for all connectors";
+        for (auto const &connector : m_connectors)
         {
-            if ( false == connector->StartListening())
+            if (false == connector->StartListening())
                 return false;
         }
         return true;
@@ -110,41 +116,42 @@ public:
     //@function: stop listen service for all connectors
     virtual void StopListening()
     {
-        LOG(DEBUG)<<"stop listening service for all connectors";
-        for(auto const& connector: m_connectors)
+        LOG(DEBUG) << "stop listening service for all connectors";
+        for (auto const &connector : m_connectors)
             connector->StopListening();
     }
-    
-    unsigned add_connector(jsonrpc::AbstractServerConnector* connector)
+
+    unsigned add_connector(jsonrpc::AbstractServerConnector *connector)
     {
         m_connectors.emplace_back(connector);
         connector->SetHandler(m_handler.get());
         return m_connectors.size();
     }
-    
-    jsonrpc::AbstractServerConnector* get_connector(unsigned int index)
-    { return m_connectors[index].get();}
-    
 
-   //virtual function of IProcedureInvokationHandler for rpc method
-   virtual void HandleMethodCall(jsonrpc::Procedure& proc,
-            Json::Value const& param, Json::Value& output)
-   {
-       if (proc.GetProcedureName() == "rpc_modules")
-           modules(param, output);
-   }
+    jsonrpc::AbstractServerConnector *get_connector(unsigned int index)
+    {
+        return m_connectors[index].get();
+    }
 
-    virtual void HandleNotificationCall(jsonrpc::Procedure& proc,
-            Json::Value const& param)
+    //virtual function of IProcedureInvokationHandler for rpc method
+    virtual void HandleMethodCall(jsonrpc::Procedure &proc,
+                                  Json::Value const &param, Json::Value &output)
+    {
+        if (proc.GetProcedureName() == "rpc_modules")
+            modules(param, output);
+    }
+
+    virtual void HandleNotificationCall(jsonrpc::Procedure &proc,
+                                        Json::Value const &param)
     {
         (void)proc;
         (void)param;
     }
 
-   virtual ~ModularServer() 
-   { 
-       StopListening();
-   }
+    virtual ~ModularServer()
+    {
+        StopListening();
+    }
 
 protected:
     //connections
@@ -157,80 +164,80 @@ protected:
 
 //abstract interface of server(http server, safe http server, etc.)
 //these interface implement: startListening, stopLisening interfaces,etc.
-template<class T, class... Is>
-class ModularServer<T, Is...>: public ModularServer<Is...>
+template <class T, class... Is>
+class ModularServer<T, Is...> : public ModularServer<Is...>
 {
 public:
     using MethodPointer = AbstractMethodPointer<T>;
     using NotificationPointer = AbstractNotificationPointer<T>;
-    ModularServer<T, Is...>(T* _interface, Is*... _is):
-    ModularServer<Is...>(_is...),
-    m_interface(_interface)
-    { register_procedures(); }
-
-   //register procedures
-   inline void register_procedures()
-   {
-       for(auto const& method: m_interface->methods())
-       {
-         //method map:
-         //  key: method name;
-         //  value: method pointer
-         //LOG(DEBUG)<<"register method:"<<std::get<0>(method).GetProcedureName();
-         m_methods[std::get<0>(method).GetProcedureName()] = 
-             std::get<1>(method);
-         //register RPC procedure
-         this->m_handler->AddProcedure(std::get<0>(method));
-       }
-       //method interface must implement "notification()" method
-       for(auto const& notification: m_interface->notifications())
-       {
-          // LOG(DEBUG)<<"register notification:"
-          //           <<std::get<0>(notification).GetProcedureName();
-           m_notifications[std::get<0>(notification).GetProcedureName()]
-               = std::get<1>(notification);
-           this->m_handler->AddProcedure(std::get<0>(notification));
-       }
-       //rpc versions
-       for(auto const& module: m_interface->ImplementedModules())
-           this->m_implemented_modules[module.name] = module.version;
-   }
-    
-   //virtual function of IProcedureInvokationHandler for rpc method
-   virtual void HandleMethodCall(jsonrpc::Procedure& proc,
-            Json::Value const& param, Json::Value& output)
+    ModularServer<T, Is...>(T *_interface, Is *... _is) : ModularServer<Is...>(_is...),
+                                                          m_interface(_interface)
     {
-       //get method pointer
-      auto pointer = m_methods.find(proc.GetProcedureName());
-      if( pointer != m_methods.end())
-      {
-         //callback method
-         (m_interface.get()->*(pointer->second))(param, output);
-         LOG(DEBUG)<<"call back specified method end, output:"<<output;
-      }
-      else
-      {
-          LOG(DEBUG)<<(proc.GetProcedureName())<<" has no specified method,"
-                    <<"use default method";
-          ModularServer<Is...>::HandleMethodCall(proc, param, output);
-      }
+        register_procedures();
     }
-    
-    //virtual function of IProcedureInvokationHandler for notification
-    virtual void HandleNotificationCall(jsonrpc::Procedure& proc,
-            Json::Value const& param)
+
+    //register procedures
+    inline void register_procedures()
     {
-       //callback interface method
-       auto notification_pointer = m_notifications.find(proc.GetProcedureName()); 
-       if( notification_pointer != m_notifications.end())
-       {
-           (m_interface.get()->*(notification_pointer->second))(param);
-           LOG(DEBUG)<<"call back method "<<(proc.GetProcedureName())<<" ended";
-       }
-       else
-       {
-           ModularServer<Is...>::HandleNotificationCall(proc, param);
-       }
+        for (auto const &method : m_interface->methods())
+        {
+            //method map:
+            //  key: method name;
+            //  value: method pointer
+            //LOG(DEBUG)<<"register method:"<<std::get<0>(method).GetProcedureName();
+            m_methods[std::get<0>(method).GetProcedureName()] =
+                std::get<1>(method);
+            //register RPC procedure
+            this->m_handler->AddProcedure(std::get<0>(method));
+        }
+        //method interface must implement "notification()" method
+        for (auto const &notification : m_interface->notifications())
+        {
+            // LOG(DEBUG)<<"register notification:"
+            //           <<std::get<0>(notification).GetProcedureName();
+            m_notifications[std::get<0>(notification).GetProcedureName()] = std::get<1>(notification);
+            this->m_handler->AddProcedure(std::get<0>(notification));
+        }
+        //rpc versions
+        for (auto const &module : m_interface->ImplementedModules())
+            this->m_implemented_modules[module.name] = module.version;
+    }
+
+    //virtual function of IProcedureInvokationHandler for rpc method
+    virtual void HandleMethodCall(jsonrpc::Procedure &proc,
+                                  Json::Value const &param, Json::Value &output)
+    {
+        //get method pointer
+        auto pointer = m_methods.find(proc.GetProcedureName());
+        if (pointer != m_methods.end())
+        {
+            //callback method
+            (m_interface.get()->*(pointer->second))(param, output);
+            LOG(DEBUG) << "call back specified method end, output:" << output;
+        }
+        else
+        {
+            LOG(DEBUG) << (proc.GetProcedureName()) << " has no specified method,"
+                       << "use default method";
+            ModularServer<Is...>::HandleMethodCall(proc, param, output);
+        }
+    }
+
+    //virtual function of IProcedureInvokationHandler for notification
+    virtual void HandleNotificationCall(jsonrpc::Procedure &proc,
+                                        Json::Value const &param)
+    {
+        //callback interface method
+        auto notification_pointer = m_notifications.find(proc.GetProcedureName());
+        if (notification_pointer != m_notifications.end())
+        {
+            (m_interface.get()->*(notification_pointer->second))(param);
+            LOG(DEBUG) << "call back method " << (proc.GetProcedureName()) << " ended";
+        }
+        else
+        {
+            ModularServer<Is...>::HandleNotificationCall(proc, param);
+        }
     }
 
 protected:
@@ -238,4 +245,3 @@ protected:
     std::map<std::string, MethodPointer> m_methods;
     std::map<std::string, NotificationPointer> m_notifications;
 };
-
