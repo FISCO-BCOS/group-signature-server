@@ -28,8 +28,8 @@
 
 部署群/环签名RPC服务之前，要安装git, dos2unxi, lsof依赖软件：
 
-- git：用于拉取最新代码
-- dos2unix && lsof: 用于处理windows文件上传到linux服务器时，可执行文件无法被linux正确解析的问题；
+- git：用于拉取最新代码；
+- dos2unix && lsof: 用于处理windows文件上传到linux服务器时，可执行文件无法被linux正确解析的问题。
 
 可用如下命令安装这些基础依赖软件：
 
@@ -116,7 +116,8 @@ group sig and ring sig RPC:
 sig-service目录下存着一个日志配置文件示例log.conf，用户使用时需要做如下配置：
 
 - 修改FILENAME，将其修改为用户自己的日志文件路径；
-- 根据需求，修改日志打印选项，生产环境中，一般WARNING/ERROR/FATAL打开（设置选项值为true），其他选项关闭（设置选项值为false）；测试环境中，可打开DEBUG和TRACE。
+- 根据需求，修改日志打印选项，生产环境中，一般WARNING/ERROR/FATAL打开（设置选项值为true），其他选项关闭（设置选项值为false）；
+- 测试环境中，可打开DEBUG和TRACE。
 
  **(3) 启动服务 **
 
@@ -132,7 +133,7 @@ nohup ./build/server -p 8003 -n 10 -l log.conf &
 
 ## 群/环签名RPC接口
 
-群/环签名RPC详细接口可参考[群/环签名RPC接口文档](doc/rpc_interface.md)
+群/环签名RPC详细接口可参考[群/环签名RPC接口文档](doc/rpc_interface.md)。
 
 ## 贡献代码
 
