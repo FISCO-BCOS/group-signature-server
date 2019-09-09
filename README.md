@@ -46,18 +46,6 @@ ln -s /usr/bin/todos /usr/bin/unxi2dos
 ln -s /usr/bin/fromdos /usr/bin/dos2unix
 ```
 
-部署dos2unix后，调用format.sh脚本格式化可执行文件，使其可被linux系统正确解析：
-
-```bash
-# 格式化format.sh脚本
-dos2unix format.sh
-
-# 执行format.sh脚本格式化其他可执行文件，使其可被正确解析执行
-bash format.sh
-```
-
-<br>
-
 **(2) 库依赖**
 
 服务端依赖的签名库基于PBC Library密码库实现，该密码库依赖了高精度数学计算库GMP，因此需要先安装GMP。
@@ -65,8 +53,10 @@ bash format.sh
 ```bash
 # Centos
 sudo yum install gmp-static
+
 # Ubuntu
 apt-get install libgmp-dev
+
 # Mac Os
 brew install gmp
 ```
@@ -74,6 +64,15 @@ brew install gmp
 ### 编译源码
 
 ```bash
+# 从拉取git代码
+git clone https://github.com/FISCO-BCOS/sig-service.git
+
+# 若是linux/unix环境，安装依赖软件之后，执行format.sh脚本格式化shell脚本和json配置文件，使其可被linux/unix正确解析
+dos2unix format.sh
+
+# 格式化shell脚本和json配置文件
+bash format.sh
+
 # 方法一: 使用compile脚本编译
 cd sig-service && bash compile.sh
 
