@@ -17,8 +17,8 @@
 | <div align = left>模块 && 代码目录</div> | <div align = left>说明</div>                                 |
 | ---------------------------------------- | ------------------------------------------------------------ |
 | 日志模块(easylog)                        | 打印服务端日志                                               |
-| RPC服务模块(httpserver)                  | 实现了群签名&&环签名RPC服务<br>(1) 群签名RPC服务主要在httpserver/GroupSigRpc.*中实现;<br>(2) 环签名RPC服务主要通过httpserver/RingSig.\*实现 |
-| 数据库模块(database)                     | 存储签名参数信息，并提供秘钥托管服务，目前支持levelDB，但可方便地扩展到其他类型数据库 |
+| RPC服务模块(httpserver)                  | 实现了群/环签名RPC服务<br>(1) 群签名RPC服务主要在httpserver/GroupSigRpc.*中实现;<br>(2) 环签名RPC服务主要通过httpserver/RingSig.\*实现 |
+| 数据库模块(database)                     | 存储签名参数信息，并提供秘钥托管服务                         |
 
 ## 服务部署
 
@@ -51,6 +51,7 @@ ln -s /usr/bin/fromdos /usr/bin/dos2unix
 ```bash
 # 格式化format.sh脚本
 dos2unix format.sh
+
 # 执行format.sh脚本格式化其他可执行文件，使其可被正确解析执行
 bash format.sh
 ```
