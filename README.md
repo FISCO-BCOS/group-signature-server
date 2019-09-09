@@ -1,4 +1,6 @@
-# Groupsig-Server
+# Groupsig-Service
+
+
 
 
 ![](https://github.com/FISCO-BCOS/FISCO-BCOS/raw/master/docs/images/FISCO_BCOS_Logo.svg?sanitize=true)
@@ -14,7 +16,7 @@
 
 | <div align = left>模块 && 代码目录</div> | <div align = left>说明</div>                                 |
 | ---------------------------------------- | ------------------------------------------------------------ |
-| 日志模块(easylog)                        | 定义了其他模块经常使用的基本数据结构，如配置解析、错误码、日志等 |
+| 日志模块(easylog)                        | 打印服务端日志                                               |
 | RPC服务模块(httpserver)                  | 实现了群签名&&环签名RPC服务<br>(1) 群签名RPC服务主要在httpserver/GroupSigRpc.*中实现;<br>(2) 环签名RPC服务主要通过httpserver/RingSig.\*实现 |
 | 数据库模块(database)                     | 存储签名参数信息，并提供秘钥托管服务，目前支持levelDB，但可方便地扩展到其他类型数据库 |
 
@@ -24,7 +26,7 @@
 
 **(1) 基础依赖** 
 
-部署群签名&&环签名RPC服务之前，要安装git, dos2unxi, lsof依赖软件：
+部署群/环签名RPC服务之前，要安装git, dos2unxi, lsof依赖软件：
 
 - git：用于拉取最新代码
 - dos2unix && lsof: 用于处理windows文件上传到linux服务器时，可执行文件无法被linux正确解析的问题；
