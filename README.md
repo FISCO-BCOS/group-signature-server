@@ -51,7 +51,7 @@ ln -s /usr/bin/fromdos /usr/bin/dos2unix
 服务端依赖的签名库基于PBC Library密码库实现，该密码库依赖了高精度数学计算库GMP，因此需要先安装GMP。
 
 ```bash
-# Centos
+# CentOS
 sudo yum install gmp-static
 
 # Ubuntu
@@ -66,6 +66,9 @@ brew install gmp
 ```bash
 # 从拉取git代码
 git clone https://github.com/FISCO-BCOS/sig-service.git
+
+# 切换分支
+git checkout dev-2.0
 
 # 若是linux/unix环境，安装依赖软件之后，执行format.sh脚本格式化shell脚本和json配置文件，使其可被linux/unix正确解析
 dos2unix format.sh
@@ -124,10 +127,10 @@ sig-service目录下存着一个日志配置文件示例log.conf，用户使用�
 
 ```bash
 # 在8005端口启动群签名&&环签名RPC服务，开启的http线程数目是10
-./build/server -p 8003 -n 10 -l log.conf 
+./build/server -p 8005 -n 10 -l log.conf 
 
 # 若要把server放到后台执行,则可借助screen, tmux, nohup等工具，命令示例：
-nohup ./build/server -p 8003 -n 10 -l log.conf &
+nohup ./build/server -p 8005 -n 10 -l log.conf &
 ```
 
 ## 群/环签名RPC接口
