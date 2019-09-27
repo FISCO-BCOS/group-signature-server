@@ -28,6 +28,7 @@
 #include <group_sig/devcore/StatusCode.h>
 
 #include "httpserver/ServerInterface.h"
+#include <climits>
 
 class RingSigRpcInterface : public ServerInterface<RingSigRpcInterface>
 {

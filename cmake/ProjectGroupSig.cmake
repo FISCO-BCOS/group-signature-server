@@ -6,7 +6,7 @@ ExternalProject_Add(GroupSigLib
         DOWNLOAD_NAME group_sig_lib.tgz
         DOWNLOAD_NO_PROGRESS 1
         GIT_REPOSITORY https://github.com/FISCO-BCOS/Group-Signature.git
-        GIT_TAG b809a78fededacac48dff3e111082edd67396957
+        GIT_TAG 7b01b47edab3622a69a1393954e5153c7e1e813a
         CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DCMAKE_POSITION_INDEPENDENT_CODE=on
         LOG_CONFIGURE 1
