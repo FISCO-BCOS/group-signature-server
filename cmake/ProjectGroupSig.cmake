@@ -6,7 +6,7 @@ ExternalProject_Add(GroupSigLib
         DOWNLOAD_NAME group_sig_lib.tgz
         DOWNLOAD_NO_PROGRESS 1
         GIT_REPOSITORY https://github.com/FISCO-BCOS/Group-Signature.git
-        GIT_TAG 8692e84436b0ddb1b34eb23e0cef770cddbf8777
+        GIT_TAG b9200fb55d29502d9fdc6071e4361c28da5c9232
         CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DCMAKE_POSITION_INDEPENDENT_CODE=on
         LOG_CONFIGURE 1
@@ -38,11 +38,7 @@ set_property(TARGET PbcSig PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${DEPS_INCLUDE
 add_dependencies(PbcSig GroupSigLib)
 
 add_library(CryptoPP STATIC IMPORTED)
-if (APPLE)
-    set_property(TARGET CryptoPP PROPERTY IMPORTED_LOCATION ${SOURCE_DIR}/deps/lib/libcryptopp${LIB_SUFFIX})
-else()
-    set_property(TARGET CryptoPP PROPERTY IMPORTED_LOCATION ${SOURCE_DIR}/deps/lib64/libcryptopp${LIB_SUFFIX})
-endif()
+set_property(TARGET CryptoPP PROPERTY IMPORTED_LOCATION ${SOURCE_DIR}/deps/lib/libcryptopp${LIB_SUFFIX})
 set_property(TARGET CryptoPP PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${DEPS_INCLUDE_DIR})
 add_dependencies(CryptoPP GroupSigLib)
 
