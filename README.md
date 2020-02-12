@@ -1,4 +1,4 @@
-# Groupsig-Service
+# group-signature-server
 
 
 
@@ -6,11 +6,11 @@
 ![](https://github.com/FISCO-BCOS/FISCO-BCOS/raw/master/docs/images/FISCO_BCOS_Logo.svg?sanitize=true)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![GitHub issues](https://img.shields.io/github/issues/FISCO-BCOS/sig-service.svg)](https://github.com/FISCO-BCOS/sig-service/issues)
-![GitHub All Releases](https://img.shields.io/github/downloads/FISCO-BCOS/sig-service/total.svg)
-[![GitHub license](https://img.shields.io/github/license/FISCO-BCOS/sig-service.svg)](https://github.com/FISCO-BCOS/sig-service/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/FISCO-BCOS/group-signature-server.svg)](https://github.com/FISCO-BCOS/group-signature-server/issues)
+![GitHub All Releases](https://img.shields.io/github/downloads/FISCO-BCOS/group-signature-service/total.svg)
+[![GitHub license](https://img.shields.io/github/license/FISCO-BCOS/group-signature-server.svg)](https://github.com/FISCO-BCOS/group-signature-server/blob/master/LICENSE)
 
-群/环签名服务端基于[群/环签名库](https://github.com/FISCO-BCOS/Group-Signature)，为[签名客户端](https://github.com/FISCO-BCOS/sig-service-client/tree/dev-2.0)提供签名服务的RPC接口。服务端部署在机构内，支持[BBS04](http://crypto.stanford.edu/~dabo/abstracts/groupsigs.html)群签名方案和[LSAG](https://www.semanticscholar.org/paper/Linkable-Spontaneous-Anonymous-Group-Signature-for-Liu-Wei/3c63f7c90d79593fadfce16d54078ec1850bedc9)环签名方案，为机构成员提供群签名和环签名服务。
+群/环签名服务端基于[群/环签名库](https://github.com/FISCO-BCOS/Group-Signature)，为[签名客户端](https://github.com/FISCO-BCOS/group-signature-client/tree/dev-2.0)提供签名服务的RPC接口。服务端部署在机构内，支持[BBS04](http://crypto.stanford.edu/~dabo/abstracts/groupsigs.html)群签名方案和[LSAG](https://www.semanticscholar.org/paper/Linkable-Spontaneous-Anonymous-Group-Signature-for-Liu-Wei/3c63f7c90d79593fadfce16d54078ec1850bedc9)环签名方案，为机构成员提供群签名和环签名服务。
 
 ## 代码模块
 
@@ -65,7 +65,7 @@ brew install gmp
 
 ```bash
 # 从拉取git代码
-git clone https://github.com/FISCO-BCOS/sig-service.git
+git clone https://github.com/FISCO-BCOS/group-signature-server.git
 
 # 切换分支
 git checkout dev-2.0
@@ -77,12 +77,12 @@ dos2unix format.sh
 bash format.sh
 
 # 方法一: 使用compile脚本编译
-cd sig-service && bash compile.sh
+cd group-signature-server && bash compile.sh
 
 # 方法二： 手动编译, 其中-j4表示用4个线程并发编译
 # 编译后，会在build目录下生成RPC服务程序server
 # Centos请使用cmake3
-cd sig-service && mkdir -p build && cd build && cmake .. && make -j4
+cd group-signature-server && mkdir -p build && cd build && cmake .. && make -j4
 ```
 
 ## 使用说明
@@ -115,7 +115,7 @@ group sig and ring sig RPC:
 
 **(2) 配置日志 **
 
-sig-service目录下存着一个日志配置文件示例log.conf，用户使用时需要做如下配置：
+group-signature-server目录下存着一个日志配置文件示例log.conf，用户使用时需要做如下配置：
 
 - 修改FILENAME，将其修改为用户自己的日志文件路径；
 - 根据需求，修改日志打印选项，生产环境中，一般WARNING/ERROR/FATAL打开（设置选项值为true），其他选项关闭（设置选项值为false）；
@@ -152,6 +152,6 @@ nohup ./build/server -p 8005 -n 10 -l log.conf &
 
 ## License
 
-![license](https://img.shields.io/github/license/FISCO-BCOS/sig-service.svg)
+![license](https://img.shields.io/github/license/FISCO-BCOS/group-signature-server.svg)
 
 Groupsig-Server的开源协议为[GNU GENERAL PUBLIC LICENSE](http://www.gnu.org/licenses/gpl-3.0.en.html). 详情参考[LICENSE](./LICENSE)。
