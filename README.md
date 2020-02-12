@@ -28,7 +28,7 @@
 | <div align = left>模块 && 代码目录</div>                               | <div align = left>说明</div>                                       |
 | ---------------------------------------- | ---------------------------------------- |
 | 常用数据结构模块(devcore)                        | 定义了其他模块经常使用的基本数据结构，如配置解析、错误码、日志等         |
-| 群签名算法模块(algorithm/bbs04/)<br>(群签名算法接口：algorithm/GroupSig.h) | BBS04群签名算法实现模块，bbs04是基于线性对的群签名算法，sig-service提供了多种线性对支持，用户可根据安全性需求自定义线性对 |
+| 群签名算法模块(algorithm/bbs04/)<br>(群签名算法接口：algorithm/GroupSig.h) | BBS04群签名算法实现模块，bbs04是基于线性对的群签名算法，group-signature-server提供了多种线性对支持，用户可根据安全性需求自定义线性对 |
 | 环签名算法模块(algorithm/ring-sig/)<br>(环签名算法接口：algorithm/RingSig.h) | 可连接的环签名算法实现模块，用户可根据安全性需求，自定义环大小          |
 | rpc服务模块(httpserver)                      | 实现了群签名&&环签名rpc服务<br>(1) 群签名RPC服务主要在httpserver/GroupSigRpc.*中实现;<br>(2) 环签名RPC服务主要通过httpserver/RingSig.\*实现 |
 | 数据库模块(database)                          | 存储签名参数信息，并提供秘钥托管服务，目前支持levelDB，但可方便地扩展到其他类型数据库 |
@@ -56,7 +56,7 @@
 
 | <div align = left>流程</div>      | <div align = left>说明</div>                                       |
 | ------- | ---------------------------------------- |
-| 生成群     | 生成群公钥(gpk)，群主私钥(gmsk)和群参数(可用不同线性对参数生成群，sig-service支持A， A1， E 和 F类型线性对，默认使用A类型线性对) |
+| 生成群     | 生成群公钥(gpk)，群主私钥(gmsk)和群参数(可用不同线性对参数生成群，group-signature-server支持A， A1， E 和 F类型线性对，默认使用A类型线性对) |
 | 加入群     | 群主为群成员产生私钥(gsk)和证书(cert)                 |
 | 生成群签名   | 群成员用私钥和证书产生群签名                           |
 | 群签名验证   | 其他人通过群公钥、群参数验证群签名信息的有效性（此时其他人仅知道签名者属于哪个群，但无法获取签名者身份信息） |
@@ -70,7 +70,7 @@
 | ---------- | ---------------------------------------- |
 | 初始化环       | 生成环参数                                    |
 | 为环成员产生公私钥对 | 成员加入环时，rpc服务为环成员产生公私钥对                   |
-| 生成环签名      | 环成员使用私钥和其他环成员公钥产生匿名签名，环大小可由用户根据性能和安全性需求自定义指定（环越大，安全性越高，性能越低；环越小，安全性越低，性能越低，sig-service默认环大小为32） |
+| 生成环签名      | 环成员使用私钥和其他环成员公钥产生匿名签名，环大小可由用户根据性能和安全性需求自定义指定（环越大，安全性越高，性能越低；环越小，安全性越低，性能越低，group-signature-server默认环大小为32） |
 | 环签名验证      | 其他人通过环参数和产生环签名的公钥列表，验证环签名的有效性            |
 
 <br>
@@ -83,7 +83,7 @@
 
 ### 1.3 场景
 
-群签名&&环签名RPC服务部署于可信机构内，提供群签名和环签名服务，该服务可与[群签名&&环签名客户端](https://github.com/FISCO-BCOS/sig-service-client) 结合使用，应用于区块链场景，也可以作为机构的签名服务，应用于其他场景。
+群签名&&环签名RPC服务部署于可信机构内，提供群签名和环签名服务，该服务可与[群签名&&环签名客户端](https://github.com/FISCO-BCOS/group-signature-client/tree/master-1.3) 结合使用，应用于区块链场景，也可以作为机构的签名服务，应用于其他场景。
 
 下面列举群签名&&环签名在区块链中的应用场景：
 
@@ -176,7 +176,7 @@ bash format.sh
 **(2) 安装levelDB、gmp等依赖软件**
 
 
-群签名&&环签名rpc服务，需要安装levelDB, gmp等依赖软件，sig-service在script目录下提供了install_deps.sh脚本，执行以下命令安装这些依赖软件：
+群签名&&环签名rpc服务，需要安装levelDB, gmp等依赖软件，group-signature-server在script目录下提供了install_deps.sh脚本，执行以下命令安装这些依赖软件：
 
 ```bash
 # 进入script目录 && 执行install_deps.sh脚本
@@ -186,7 +186,7 @@ cd script && sudo bash install_deps.sh
 
 **(3) 安装群签名算法依赖软件pbc和pbc-sig**
 
-群签名算法依赖pbc库和pbc-sig库，部署群签名&&环签名RPC服务前，首先要安装pbc和pbc-sig库，sig-service在script目录下提供了pbc和pbc-sig一键安装脚本install.sh，执行以下命令安装pbc和pbc-sig:
+群签名算法依赖pbc库和pbc-sig库，部署群签名&&环签名RPC服务前，首先要安装pbc和pbc-sig库，group-signature-server在script目录下提供了pbc和pbc-sig一键安装脚本install.sh，执行以下命令安装pbc和pbc-sig:
 
 ```bash
 # 进入script目录，执行install.sh脚本安装pbc和pbc-sig
@@ -205,18 +205,18 @@ cd script && sudo ./install.sh
 ### 2.2 编译安装群签名&&环签名RPC服务
 
 ```bash
-# 编译sig-service
+# 编译group-signature-server
 # 方法一: 使用compile脚本编译
-cd sig-service && bash compile.sh
+cd group-signature-server && bash compile.sh
 #或者: （注：执行下面命令前，需要先保证compile.sh脚本可执行 ：chmod +x compile.sh可使其可执行）
-cd sig-service && ./compile.sh
+cd group-signature-server && ./compile.sh
 
 # 方法二： 手动编译, 其中-j4表示用4个线程并发编译，用户可根据机器实际配置动态调整编译线程数
 ##（1）【Centos系统】编译后，会在build目录下生成rpc服务程序server
-cd sig-service && mkdir -p build && cd build && cmake3 .. && make -j4
+cd group-signature-server && mkdir -p build && cd build && cmake3 .. && make -j4
 
 ###（2）【Ubuntu系统】编译后，会在build目录下生成rpc服务程序server
-cd sig-service && mkdir -p build && cd build && cmake .. && make -j4
+cd group-signature-server && mkdir -p build && cd build && cmake .. && make -j4
 ```
 
 <br>
@@ -258,7 +258,7 @@ group sig and ring sig RPC:
 
 **(2) 日志配置 log.conf**
 
-sig-service目录下存着一个日志配置文件示例log.conf，其内容如下。
+group-signature-server目录下存着一个日志配置文件示例log.conf，其内容如下。
 
 用户使用时，需要：
 
@@ -271,7 +271,7 @@ sig-service目录下存着一个日志配置文件示例log.conf，其内容如�
     TO_FILE                 =   true  
     TO_STANDARD_OUTPUT      =   false  
     FORMAT                  =   "%level|%datetime{%Y-%M-%d %H:%m:%s:%g}|%msg"   
-    FILENAME                =   "/data/sig-service/log/log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/group-signature-server/log/log_%datetime{%Y%M%d}.log"  
     MILLISECONDS_WIDTH      =   3   
     PERFORMANCE_TRACKING    =   false  
     MAX_LOG_FILE_SIZE       =   209715200 ## 200MB - Comment starts with two hashes (##)
@@ -279,38 +279,38 @@ sig-service目录下存着一个日志配置文件示例log.conf，其内容如�
     
 * TRACE:  
     ENABLED                 =   false
-    FILENAME                =   "/data/sig-service/log/trace_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/group-signature-server/log/trace_log_%datetime{%Y%M%d}.log"  
     
 * DEBUG:  
     ENABLED                 =   true
-    FILENAME                =   "/data/sig-service/log/debug_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/group-signature-server/log/debug_log_%datetime{%Y%M%d}.log"  
 
 * FATAL:  
     ENABLED                 =   true  
-    FILENAME                =   "/data/sig-service/log/fatal_log_%datetime{%Y%M%d}.log"
+    FILENAME                =   "/data/group-signature-server/log/fatal_log_%datetime{%Y%M%d}.log"
     
 * ERROR:  
     ENABLED                 =   true
-    FILENAME                =   "/data/sig-service/log/error_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/group-signature-server/log/error_log_%datetime{%Y%M%d}.log"  
     
 * WARNING: 
      ENABLED                 =   true
-     FILENAME                =   "/data/sig-service/log/warn_log_%datetime{%Y%M%d}.log"
+     FILENAME                =   "/data/group-signature-server/log/warn_log_%datetime{%Y%M%d}.log"
  
 * INFO: 
     ENABLED                 =   true
-    FILENAME                =   "/data/sig-service/log/info_log_%datetime{%Y%M%d}.log"  
+    FILENAME                =   "/data/group-signature-server/log/info_log_%datetime{%Y%M%d}.log"  
     
 * VERBOSE:  
     ENABLED                 =   true
-    FILENAME                =   "/data/sig-service/log/verbose_log_%datetime{%Y%M%d}.log"
+    FILENAME                =   "/data/group-signature-server/log/verbose_log_%datetime{%Y%M%d}.log"
 ```
 
 用户启动群签名&&环签名RPC服务时，用-l或--log_path选项设置日志路径，或者直接将log.conf拷贝到编译生成的可执行文件同一路径，不指定-l或--log_path，一个简单的启动例子如下：
 
 ```bash
 #在8005端口启动群签名&&环签名RPC服务，日志配置文件路径是bak/log.conf； 开启的http线程数目是1000
-[app@VM_105_81_centos sig-service]$ chmod +x build/server && ./build/server -p 8005 -n 1000 -l bak/log.conf 
+[app@VM_105_81_centos group-signature-server]$ chmod +x build/server && ./build/server -p 8005 -n 1000 -l bak/log.conf 
 port:8005 thread:1000
 ADD HTTP CONNECTOR TO test_server
 start listening on port 8005
