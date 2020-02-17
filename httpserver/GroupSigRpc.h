@@ -101,15 +101,17 @@ private:
                               const int& ret_code, 
                               const int& expected_ret_code,
                               const std::string& prefix_str="");*/
-
+        using GroupSigRpcInterface::get_group_public_info;
         inline bool get_group_public_info(std::string &gpk_info,
                                           Json::Value &ret_json, const std::string &group_name,
                                           const int &expected_status, const std::string &prefix = "");
 
+        using GroupSigRpcInterface::get_gmsk_info;
         inline bool get_gmsk_info(std::string &gmsk_info,
                                   Json::Value &ret_json, const std::string &group_name,
                                   const int &expected_status, const std::string &prefix = "");
 
+        using GroupSigRpcInterface::get_gsk_info;
         inline bool get_gsk_info(std::string &gsk_info,
                                  Json::Value &ret_json, const std::string &group_name,
                                  const std::string &member_id,

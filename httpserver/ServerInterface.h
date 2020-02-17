@@ -94,6 +94,7 @@ public:
     //rpc_module default callback function
     inline virtual void modules(const Json::Value &request, Json::Value &response)
     {
+        (void)request;
         response = m_implemented_modules;
     }
 

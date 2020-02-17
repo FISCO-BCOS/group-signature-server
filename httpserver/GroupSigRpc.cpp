@@ -143,6 +143,7 @@ Json::Value GroupSigRpc::get_gmsk_info(
     const std::string &group_name,
     const std::string &gm_pass)
 {
+    (void)gm_pass;
     //TODO group manager authentication:gm_pass
     std::string gmsk_info;
     Json::Value ret_json;
@@ -168,6 +169,7 @@ Json::Value GroupSigRpc::get_gsk_info(const std::string &group_name,
                                       const std::string &member_id,
                                       const std::string &pass)
 {
+    (void)pass;
     std::string gsk_info;
     Json::Value ret_json;
     std::string prefix = "member " + member_id + " of group " + group_name;
@@ -180,12 +182,13 @@ Json::Value GroupSigRpc::get_gsk_info(const std::string &group_name,
 
 Json::Value GroupSigRpc::get_revoked_list(const std::string &group_name)
 {
-
+    (void)group_name;
     return Json::Value(Json::nullValue);
 }
 
 Json::Value GroupSigRpc::get_gone_list(const std::string &group_name)
 {
+    (void)group_name;
     return Json::Value(Json::nullValue);
 }
 
@@ -317,6 +320,7 @@ Json::Value GroupSigRpc::group_sig(const std::string &group_name,
                                    const std::string &message,
                                    const std::string &gsk_pass)
 {
+    (void)gsk_pass;
     Json::Value ret_json;
     //###load gsk info
     LOG(DEBUG) << "get gsk info for group sig";
@@ -395,6 +399,7 @@ Json::Value GroupSigRpc::open_cert(const std::string &group_name,
                                    const std::string &sig, const std::string &message,
                                    std::string &gm_pass)
 {
+    (void)gm_pass;
     //group exists?
     std::string gpk_info;
     Json::Value ret_json;
@@ -434,11 +439,16 @@ Json::Value GroupSigRpc::open_cert(const std::string &group_name,
 Json::Value GroupSigRpc::revoke_member(const std::string &group_name,
                                        const std::string &revoked_member, std::string &gm_pass)
 {
+    (void)group_name;
+    (void)revoked_member;
+    (void)gm_pass;
     return Json::Value(Json::nullValue);
 }
 
 Json::Value GroupSigRpc::revoke_update_private_key(const std::string &group_name,
                                                    const std::string &member_id)
 {
+    (void)group_name;
+    (void)member_id;
     return Json::Value(Json::nullValue);
 }

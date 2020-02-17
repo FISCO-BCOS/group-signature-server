@@ -54,6 +54,7 @@ int GroupSigDB::store_gmsk(const std::string &group_name,
                            const std::string &gmsk_pass,
                            const std::string &gmsk_info)
 {
+    (void)gmsk_pass;
     //TODO: encode gmsk_info with gmsk_pass
     return db_interface->db_put(group_name, GM_KEY, gmsk_info);
 }
@@ -62,6 +63,7 @@ int GroupSigDB::store_gamma(const std::string &group_name,
                             const std::string &gmsk_pass,
                             const std::string &gamma_info)
 {
+    (void)gmsk_pass;
     //TODO: encode gamma_info with gmsk_pass
     return db_interface->db_put(group_name, GAMMA_KEY, gamma_info);
 }
@@ -72,6 +74,7 @@ int GroupSigDB::store_gsk(const std::string &group_name,
                           const std::string &gsk_pass,
                           const std::string &gsk_info)
 {
+    (void)gsk_pass;
     //TODO:gsk_pass verify
     return db_interface->db_put(group_name, member_id, gsk_info);
 }
@@ -82,6 +85,7 @@ int GroupSigDB::store_revoked_list(const std::string &group_name,
                                    const std::string &revoked_info,
                                    const std::string &gone_info)
 {
+    (void)revoked_member;
     std::string all_revoked_info;
     int success = load_revoked_list(all_revoked_info, group_name);
     if (!success)
@@ -128,6 +132,7 @@ int GroupSigDB::load_gmsk(std::string &gmsk_info,
                           const std::string &group_name,
                           const std::string &gmsk_pass)
 {
+    (void)gmsk_pass;
     //TODO: identify authentication
     return db_interface->db_get(gmsk_info, group_name, GM_KEY);
 }
@@ -136,6 +141,7 @@ int GroupSigDB::load_gamma(std::string &gamma_info,
                            const std::string &group_name,
                            const std::string &gmsk_pass)
 {
+    (void)gmsk_pass;
     return db_interface->db_get(gamma_info, group_name, GAMMA_KEY);
 }
 
@@ -144,6 +150,7 @@ int GroupSigDB::load_gsk(std::string &gsk,
                          const std::string &member_name,
                          const std::string &member_pass)
 {
+    (void)member_pass;
     return db_interface->db_get(gsk, group_name, member_name);
 }
 

@@ -119,11 +119,11 @@ int main(int argc, char *argv[])
         log_path = vm["log_path"].as<std::string>();
     initEasylogging(log_path);
 
-    int port = 8003;
+    int port = 8005;
     if (vm.count("port") || vm.count("p"))
         port = vm["port"].as<int>();
 
-    int http_thread_num = 50;
+    int http_thread_num = 10;
     if (vm.count("http_thread_num") || vm.count("n"))
         http_thread_num = vm["http_thread_num"].as<int>();
 

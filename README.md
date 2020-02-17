@@ -106,8 +106,8 @@ group sig and ring sig RPC:
 
 | <div align = left>参数</div>                    | <div align = left>说明</div>               | <div align = left>默认参数</div>       |
 | --------------------- | --------------------- | ---------- |
-| -p, --port            | rpc服务启动端口             | 8003      |
-| -n, --http_thread_num | rpc服务启动的http线程数目      | 50         |
+| -p, --port            | rpc服务启动端口             | 8005      |
+| -n, --http_thread_num | rpc服务启动的http线程数目      | 10         |
 | -l, --log_path        | 配置文件路径                | "log.conf" |
 | -s, --ssl_cert        | ssl证书路径（针对https服务）    | “”         |
 | -k, --ssl_key         | 访问ssl证书的秘钥（针对https服务） | “”         |
