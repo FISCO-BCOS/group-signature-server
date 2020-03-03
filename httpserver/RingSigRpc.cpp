@@ -82,6 +82,12 @@ Json::Value RingSigRpc::join_ring(const std::string &ring_name)
     std::string pos;
     prefix = "pos of " + ring_name;
     db_ret = db_interface->load_ring_pos(pos, ring_name);
+    if (pos == "32")
+    {
+        ret_json["ret_code"] = RING_SIZE_TOO_BIG;
+        ret_json["details"] = "maximum ring size is 32, cannot join ring any more";
+        return ret_json;
+    }
     succ = Common::DB_access_ret(ret_json, db_ret, KEY_EXIST, prefix);
     if (!succ)
     {
@@ -149,7 +155,7 @@ Json::Value RingSigRpc::linkable_ring_sig(
     LOG(DEBUG) << "param info:" << param_info;
     ////get private_key_info
     std::string private_key_info;
-    prefix = "private_key of " + ring_name + "member " + to_string(id);
+    prefix = "private_key of " + ring_name + " member " + to_string(id);
     db_ret = db_interface->load_private_key(private_key_info,
                                             ring_name, to_string(id));
     succ = Common::DB_access_ret(ret_json, db_ret, KEY_EXIST, prefix);
