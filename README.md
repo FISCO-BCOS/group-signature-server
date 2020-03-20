@@ -1,8 +1,6 @@
 # group-signature-server
 
 
-
-
 ![](https://github.com/FISCO-BCOS/FISCO-BCOS/raw/master/docs/images/FISCO_BCOS_Logo.svg?sanitize=true)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -24,41 +22,28 @@
 
 ### 安装依赖
 
-**(1) 基础依赖** 
+- Ubuntu
 
-部署群/环签名RPC服务之前，要安装git, dos2unxi, lsof依赖软件：
-
-- git：用于拉取最新代码；
-- dos2unix && lsof: 用于处理windows文件上传到linux服务器时，可执行文件无法被linux正确解析的问题。
-
-可用如下命令安装这些基础依赖软件：
+推荐Ubuntu 16.04以上版本，16.04以下的版本没有经过测试.
 
 ```bash
-# [Centos]
-sudo yum -y install git lsof dos2unix
-
-# [Mac Os]
-brew install git lsof dos2unix
-
-# [Ubuntu] 没有dos2unix工具
-sudo apt install git lsof tofrodos
-ln -s /usr/bin/todos /usr/bin/unxi2dos
-ln -s /usr/bin/fromdos /usr/bin/dos2unix
+$ sudo apt install -y flex patch bison libgmp-dev byacc
 ```
 
-**(2) 库依赖**
+- CentOS
 
-服务端依赖的签名库基于PBC Library密码库实现，该密码库依赖了高精度数学计算库GMP，因此需要先安装GMP。
+推荐使用CentOS7以上版本。
 
 ```bash
-# CentOS
-sudo yum install gmp-static
+$ sudo yum install -y flex patch bison gmp-static byacc
+```
 
-# Ubuntu
-apt-get install libgmp-dev
+- macOS
 
-# Mac Os
-brew install gmp
+推荐xcode10以上版本。macOS依赖包安装依赖于[Homebrew](https://brew.sh/)。
+
+```bash
+$ brew install flex bison gmp byacc
 ```
 
 ### 编译源码
@@ -67,22 +52,11 @@ brew install gmp
 # 从拉取git代码
 git clone https://github.com/FISCO-BCOS/group-signature-server.git
 
-# 切换分支
-git checkout dev-2.0
-
-# 若是linux/unix环境，安装依赖软件之后，执行format.sh脚本格式化shell脚本和json配置文件，使其可被linux/unix正确解析
-dos2unix format.sh
-
-# 格式化shell脚本和json配置文件
-bash format.sh
-
-# 方法一: 使用compile脚本编译
-cd group-signature-server && bash compile.sh
-
-# 方法二： 手动编译, 其中-j4表示用4个线程并发编译
+# 进入目录
+cd group-signature-server && mkdir -p build && cd build
+# 编译源码 Centos请使用cmake3
+cmake .. && make -j4
 # 编译后，会在build目录下生成RPC服务程序server
-# Centos请使用cmake3
-cd group-signature-server && mkdir -p build && cd build && cmake .. && make -j4
 ```
 
 ## 使用说明
@@ -139,16 +113,14 @@ nohup ./build/server -p 8005 -n 10 -l log.conf &
 
 ## 贡献代码
 
-- 我们欢迎并非常感谢您的贡献，请参阅[代码贡献流程](https://mp.weixin.qq.com/s/hEn2rxqnqp0dF6OKH6Ua-A
-  )。
+- 我们欢迎并非常感谢您的贡献，请参阅[代码贡献流程](CONTRIBUTING.md))。
 - 如项目对您有帮助，欢迎star支持！
-- 如果发现代码存在安全漏洞，请在[这里](https://security.webank.com)上报。
 
 ## 加入社区
 
 **FISCO BCOS开源社区**是国内活跃的开源社区，社区长期为机构和个人开发者提供各类支持与帮助。已有来自各行业的数千名技术爱好者在研究和使用FISCO BCOS。如您对FISCO BCOS开源技术及应用感兴趣，欢迎加入社区获得更多支持与帮助。
 
-![](https://media.githubusercontent.com/media/FISCO-BCOS/LargeFiles/master/images/QR_image.png)
+![](https://raw.githubusercontent.com/FISCO-BCOS/LargeFiles/master/images/QR_image.png)
 
 ## License
 
