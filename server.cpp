@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    std::string log_path = "log.conf";
+    std::string log_path = "../log.conf";
     if (vm.count("log_path") || vm.count("l"))
         log_path = vm["log_path"].as<std::string>();
     initEasylogging(log_path);
