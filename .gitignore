@@ -1,0 +1,61 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# java
+*.class
+
+
+# ignore some directory
+build
+build/**
+deps
+deps/**
+tools/nodes
+tools/nodes/**
+tools/console
+tools/console/**
+log
+log/**
+data
+data/**
+db_data
+db_data/**
+
+# vs
+*.sln
+*.vcxproj*
+.vs/
+.vscode/
+
+# macOS
+.DS_Store
