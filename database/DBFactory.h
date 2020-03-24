@@ -19,15 +19,15 @@
  * @author: fisco-dev
  * @date: 2018.03.10
  * @function: interface of level db
- */ 
+ */
 
 #pragma once
 #include <memory>
 
-#include "devcore/easylog.h"
-#include "devcore/CommonFunc.h"
-#include "devcore/ConfigParser.h"
-#include "devcore/CommonStruct.h"
+#include "easylog/easylog.h"
+#include <group_sig/devcore/CommonFunc.h>
+#include <group_sig/devcore/ConfigParser.h>
+#include <group_sig/devcore/CommonStruct.h>
 
 #include "DBInterface.h"
 #include "levelDB/LevelDB.h"
@@ -36,42 +36,42 @@ using namespace std;
 using namespace dev::eth;
 namespace DB
 {
-    static DBInterface* create_db(
-         const shared_ptr<dev::eth::JsonConfigParser>& p_config)
+static DBInterface *create_db(
+    const shared_ptr<dev::eth::JsonConfigParser> &p_config)
+{
+    std::string db_type_str = "";
+    std::string db_path = "";
+    if (p_config)
     {
-        std::string db_type_str = "";
-        std::string db_path = "";
-        if(p_config)
-        {
-            db_type_str = p_config->get_value<std::string>("db_type"); 
-            db_path = p_config->get_value<std::string>("db_path");
-        }
-        
-        LOG(DEBUG)<<"create db, db_type:"<<db_type_str;
-        dev::eth::DBType db_type = dev::eth::get_dbtype_by_string(db_type_str);
-        DBInterface* p_db = NULL;
-        switch(db_type)
-        {
-            case dev::eth::LEVELDB:
-                LOG(DEBUG)<<"create levelDB";
-                p_db = (singleton<LevelDB>::instance(db_path)).get();
-                break;
-            case dev::eth::MYSQL:
-                LOG(WARNING)<<"MYSQL MODULE HAS NOT BEEN IMPLEMENTED YET "
-                            <<"USE LEVEL DB";
-                p_db = (singleton<LevelDB>::instance(db_path)).get();
-                break;
-            case dev::eth::REDIS:
-                LOG(WARNING)<<"REDIS MODULE HAS NOT BEEN IMPLEMENTED YET "
-                            <<"USE LEVELDB AS DEFAULT";
-                p_db = (singleton<LevelDB>::instance(db_path)).get();
-                break;
-            default:
-                LOG(ERROR)<<"UNKOWN DB TYPE:"<<db_type_str
-                          <<"USE LEVELDB AS DEFAULT";
-                p_db = (singleton<LevelDB>::instance(db_path)).get();
-                break;
-        }
-        return p_db;
+        db_type_str = p_config->get_value<std::string>("db_type");
+        db_path = p_config->get_value<std::string>("db_path");
     }
+
+    LOG(DEBUG) << "create db, db_type:" << db_type_str;
+    dev::eth::DBType db_type = dev::eth::get_dbtype_by_string(db_type_str);
+    DBInterface *p_db = NULL;
+    switch (db_type)
+    {
+    case dev::eth::LEVELDB:
+        LOG(DEBUG) << "create levelDB";
+        p_db = (singleton<LevelDB>::instance(db_path)).get();
+        break;
+    case dev::eth::MYSQL:
+        LOG(WARNING) << "MYSQL MODULE HAS NOT BEEN IMPLEMENTED YET "
+                     << "USE LEVEL DB";
+        p_db = (singleton<LevelDB>::instance(db_path)).get();
+        break;
+    case dev::eth::REDIS:
+        LOG(WARNING) << "REDIS MODULE HAS NOT BEEN IMPLEMENTED YET "
+                     << "USE LEVELDB AS DEFAULT";
+        p_db = (singleton<LevelDB>::instance(db_path)).get();
+        break;
+    default:
+        LOG(ERROR) << "UNKOWN DB TYPE:" << db_type_str
+                   << "USE LEVELDB AS DEFAULT";
+        p_db = (singleton<LevelDB>::instance(db_path)).get();
+        break;
+    }
+    return p_db;
 }
+} // namespace DB

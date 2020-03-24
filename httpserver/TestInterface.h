@@ -24,31 +24,32 @@
 #include <jsonrpccpp/server.h>
 #include <jsonrpccpp/server/connectors/httpserver.h>
 
-#include "devcore/easylog.h"
+#include "easylog/easylog.h"
 
 #include "httpserver/ServerInterface.h"
 
 using namespace jsonrpc;
-class TestInterface: public ServerInterface<TestInterface>
+class TestInterface : public ServerInterface<TestInterface>
 {
 public:
     TestInterface()
     {
-        LOG(DEBUG)<<"bind and add method print_hello";
+        LOG(DEBUG) << "bind and add method print_hello";
         bind_and_add_method(jsonrpc::Procedure("print_hello",
-               PARAMS_BY_NAME, JSON_STRING,
-               "name", JSON_STRING, NULL), &TestInterface::print_hello);
+                                               PARAMS_BY_NAME, JSON_STRING,
+                                               "name", JSON_STRING, NULL),
+                            &TestInterface::print_hello);
     }
 
-    inline virtual void print_hello(const Json::Value& request,
-            Json::Value & response)
+    inline virtual void print_hello(const Json::Value &request,
+                                    Json::Value &response)
     {
-        LOG(DEBUG)<<"PRINT HELLO TEST";
-        LOG(DEBUG)<<"RESULT IS:"<<request["name"];
+        LOG(DEBUG) << "PRINT HELLO TEST";
+        LOG(DEBUG) << "RESULT IS:" << request["name"];
         response = "Hello " + request["name"].asString();
     }
     virtual RpcModuleVec ImplementedModules() const
     {
-        return  RpcModuleVec{RpcModule{"test", "1.0"}};
+        return RpcModuleVec{RpcModule{"test", "1.0"}};
     };
 };

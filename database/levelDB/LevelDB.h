@@ -25,35 +25,32 @@
 #include <string>
 #include "leveldb/db.h"
 
-#include "devcore/easylog.h"
-#include "devcore/StatusCode.h"
-
+#include "easylog/easylog.h"
+#include <group_sig/devcore/StatusCode.h>
 #include "database/DBInterface.h"
 
 namespace DB
 {
-
-class LevelDB: public DBInterface
+class LevelDB : public DBInterface
 {
-  public:
-      LevelDB(const std::string& _db_path);
-      
-      virtual int db_put(std::string const& db_name, 
-              std::string const& db_key, std::string const& db_value);
+public:
+    LevelDB(const std::string &_db_path);
 
-      virtual int db_get(std::string& db_value, 
-              std::string const& db_name, std::string const& db_key);
-       
+    virtual int db_put(std::string const &db_name,
+                       std::string const &db_key, std::string const &db_value);
 
-      virtual ~LevelDB()
-      {
-          LOG(DEBUG)<<"FREE LEVELDB"; 
-      }
+    virtual int db_get(std::string &db_value,
+                       std::string const &db_name, std::string const &db_key);
 
-  private:
-      std::shared_ptr<leveldb::DB> db_handler;
-      std::string db_path;
-      const static std::string DEFAULT_DBPATH;
+    virtual ~LevelDB()
+    {
+        LOG(DEBUG) << "FREE LEVELDB";
+    }
+
+private:
+    std::shared_ptr<leveldb::DB> db_handler;
+    std::string db_path;
+    const static std::string DEFAULT_DBPATH;
 };
 
-}
+} // namespace DB

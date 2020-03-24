@@ -14,16 +14,11 @@ message("LEVELDB")
 message(${SRC_LIST})
 message(${HEADERS})
 
-find_package(Dev)
-find_package(LevelDB)
-
 include_directories(${LEVELDB_INCLUDE_DIR})
-#include_directories(${DEVCORE_INCLUDE_DIRS})
 
-add_library(database ${SRC_LIST} ${HEADERS})
-target_link_libraries(database leveldb)
-target_link_libraries(database group_sig_devcore)
+add_library(Database ${SRC_LIST} ${HEADERS})
+target_link_libraries(Database LevelDB Easylog GroupSig)
 
-install(TARGETS database RUNTIME DESTINATION bin/group_sig/database ARCHIVE DESTINATION lib/group_sig/database LIBRARY DESTINATION lib/group_sig/database)
-INSTALL(FILES ${DB_HEADERS} DESTINATION include/group_sig/database) 
-INSTALL(FILES ${LEVELDB_HEADERS} DESTINATION include/group_sig/database/levelDB/) 
+install(TARGETS Database RUNTIME DESTINATION bin/groupsig_client/database ARCHIVE DESTINATION lib/groupsig_client/database LIBRARY DESTINATION lib/groupsig_client/database)
+INSTALL(FILES ${DB_HEADERS} DESTINATION include/groupsig_client/database) 
+INSTALL(FILES ${LEVELDB_HEADERS} DESTINATION include/groupsig_client/database/levelDB/) 

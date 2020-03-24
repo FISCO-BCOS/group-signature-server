@@ -1,1 +1,1 @@
-./build/server 8003 ${1} > result.log
+./build/server 8005 ${1} > result.log
