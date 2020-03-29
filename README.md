@@ -4,7 +4,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![GitHub issues](https://img.shields.io/github/issues/FISCO-BCOS/group-signature-server.svg)](https://github.com/FISCO-BCOS/group-signature-server/issues)
-[![All releases](https://img.shields.io/github/release/FISCO-BCOS/group-signature-server.svg)](https://github.com/FISCO-BCOS/group-signature-server/releases)
+[![All releases](https://img.shields.io/github/release/FISCO-BCOS/group-signature-server.svg)](https://github.com/FISCO-BCOS/group-signature-server/releases/latest)
 ![](https://img.shields.io/github/license/FISCO-BCOS/group-signature-server) 
 
 群/环签名服务端基于[群/环签名库](https://github.com/FISCO-BCOS/group-signature-lib)，为群/环签名[客户端](https://github.com/FISCO-BCOS/group-signature-client)提供签名RPC服务。服务端可部署在机构内，支持[BBS04](http://crypto.stanford.edu/~dabo/abstracts/groupsigs.html)群签名方案和[LSAG](https://www.semanticscholar.org/paper/Linkable-Spontaneous-Anonymous-Group-Signature-for-Liu-Wei/3c63f7c90d79593fadfce16d54078ec1850bedc9)环签名方案，为机构成员提供群签名和环签名服务。
@@ -14,13 +14,13 @@
 ![](image/demo.jpg)
 
 
-## 代码模块
+## 代码结构
 
-| <div align = left>模块 && 代码目录</div> | <div align = left>说明</div>                                 |
-| ---------------------------------------- | --------------------------------------------------- |
-| 日志模块(easylog)                        | 打印服务端日志                                               |
-| RPC模块(httpserver)                     | 群/环签名RPC服务|
-| 数据库模块(database)                     | 存储签名参数信息，并提供秘钥托管服务                             |
+| <div align = left>目录</div> | <div align = left>说明</div>                     |
+| ---------------------------------------- | ----------------------------------- |
+| easylog                     | 打印服务端日志                                      |
+| httpserver                  | 群/环签名RPC服务|
+| database                    | 存储签名参数以及群成员信息                            |
 
 ## 服务部署
 
@@ -87,7 +87,11 @@ group sig and ring sig RPC:
   -h [ --help ]                help of group sig and ring sig rpc
 ```
 
-各参数含义如下：
+- 命令示例
+
+./server -p 8005 -n 10 -l ../log.conf 
+
+- 参数含义
 
 | <div align = left>参数</div>  | <div align = left>说明</div>  | <div align = left>默认参数</div>   |
 | --------------------- | --------------------- | ---------- |
@@ -98,9 +102,6 @@ group sig and ring sig RPC:
 | -k     | 私钥路径（针对https） |       |
 | -h    | 显示帮助信息                |          |
 
-命令示例：
-
-./server -p 8005 -n 10 -l ../log.conf 
 
 **配置日志**
 
