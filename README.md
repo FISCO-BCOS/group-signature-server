@@ -31,7 +31,7 @@
 推荐Ubuntu 16.04以上版本，16.04以下的版本没有经过测试。
 
 ```bash
-$ sudo apt install -y flex patch bison libgmp-dev byacc
+$ sudo apt-get install -y flex patch bison libgmp-dev byacc libmicrohttpd-dev
 ```
 
 - CentOS
